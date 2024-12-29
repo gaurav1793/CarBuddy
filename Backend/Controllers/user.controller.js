@@ -1,6 +1,8 @@
 const { validationResult } = require('express-validator');
 const userModel =require('../Models/user.model');
 const { createUser } = require('../services/user.services');
+const blackListTokenModel = require('../Models/blacklistToken.model');
+
 
 const registerUser= async(req , res)=>{
     console.log("hlo from controler");
@@ -40,12 +42,33 @@ const loginUser=async(req,res)=>{
     }
 
     const { email , password} = req.body;
+    const user =await userModel.findOne({email}).select('+password');
 
+    if(!user){
+        return res.status(401).json({message:"Invalid email or password"});
+    }
+
+    const isMatch = await user.comparePassword(password);
+
+    if(!isMatch){
+        return res.status(401).json({message:"Invalid email or password"});
+    }
+
+    const token = user.generateAuthToken();
+    res.cookie('token',token);
+    res.status(200).json({token,user});
 }
 
 
+const getUserProfile=async(req,res)=>{
+    res.status(200).json(req.user);
+}
 
+const logoutUser=async(req,res)=>{
+    res.clearCookie('token');
+    const token = req.cookies.token || req.headers.authorization.split(' ')[1];
+    await blackListTokenModel.create({ token });
+    res.status(200).json({message:"Logged out successfully"});
+}
 
-
-
-module.exports={registerUser ,loginUser};
+module.exports={registerUser ,loginUser ,getUserProfile ,logoutUser};

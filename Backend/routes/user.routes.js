@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const { body } = require('express-validator')
-const { registerUser ,loginUser} = require('../Controllers/user.controller');
+const { registerUser ,loginUser ,getUserProfile ,logoutUser} = require('../Controllers/user.controller');
+const { authUser } = require('../Middlewares/auth.middleware');
 
 const middle =(req,res,next)=>{
     console.log("hlo from routes");
@@ -21,7 +22,9 @@ router.post('/login',
     loginUser
 )
 
-
+router.use(authUser);
+router.get('/profile',getUserProfile)
+router.get('/logout',logoutUser)
 
 
 module.exports = router;
