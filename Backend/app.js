@@ -4,9 +4,9 @@ const express=require('express');
 const app=express();
 const cors= require('cors');
 const connectDB = require('./db/db');
-const router = require('./routes/user.routes');
+const userrouter = require('./routes/user.routes');
 const cookieparser = require('cookie-parser');
-
+const captianrouter = require('./routes/captian.routes');
 
 app.use(cors());
 connectDB();
@@ -14,7 +14,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
 
-app.use('/users' ,router);
+app.use('/users' ,userrouter);
+app.use('/captians' ,captianrouter);
 
 
 app.get('/',(req,res)=>{
