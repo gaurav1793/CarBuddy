@@ -32,10 +32,11 @@ const registerCaptian = async (req, res) => {
 
     const token = captian.generateAuthToken();
 
-    res.status(201).json({ token,captian });
+    res.status(200).json({ token,captian });
 }
 
 const loginCaption = async (req, res) => {
+   
     const errors =validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()});

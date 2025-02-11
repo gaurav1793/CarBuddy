@@ -3,6 +3,7 @@ const router = express.Router();
 const { body } = require('express-validator')
 const {registerCaptian ,loginCaption ,getCaptionProfile ,logoutCaptian} =require('../Controllers/captian.controller');
 const { authCaptian } = require('../Middlewares/auth.middleware');
+
 const middle =(req,res,next)=>{
     console.log("hlo from routes");
     next();

@@ -15,7 +15,7 @@ app.use(express.urlencoded({extended:true}));
 app.use(cookieparser());
 
 app.use('/users' ,userrouter);
-app.use('/captians' ,captianrouter);
+app.use('/captains' ,captianrouter);
 
 
 app.get('/',(req,res)=>{
