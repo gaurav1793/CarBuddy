@@ -13,6 +13,8 @@ import UserLogout from './pages/UserLogout'
 import CaptainContext from './context/CaptainContext'
 import CaptainHome from './pages/CaptainHome'
 import CaptainProtectWrapper from './pages/CaptainProtectWrapper'
+import Riding from './pages/Riding'
+import CaptainRiding from './pages/CaptainRiding'
 
 const router = createBrowserRouter([
   {
@@ -67,6 +69,16 @@ const router = createBrowserRouter([
         <CaptainHome/>
       </CaptainProtectWrapper>
     </div>
+  },
+  {path: "/riding",
+  element: <div>
+    <Riding/>
+  </div>
+  },
+  {path: "/captain-riding",
+  element: <div>
+    <CaptainRiding/>
+  </div>
   }
 
 ])
